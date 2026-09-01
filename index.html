@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahmoud Osama Mahmoud — Communications Engineer</title>
+<meta name="description" content="Portfolio of Mahmoud Osama Mahmoud, Communications Engineering student, embedded systems & AI enthusiast.">
+
+<!-- ============================================================
+     FONTS — Space Grotesk (headlines), IBM Plex Mono (labels/tags),
+     Inter (body copy). Swap the href below if you want different fonts.
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   DESIGN TOKENS — UPDATE COLOR THEME HERE
+   Palette is grounded in PCB / schematic aesthetics:
+   solder-mask green surfaces, copper-trace accent, signal-teal accent.
+   ============================================================ */
+:root{
+  --font-head: 'Space Grotesk', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  --copper: #D98A4A;
+  --signal: #35D6B0;
+
+  --radius-s: 3px;
+  --radius-m: 6px;
+  --grid-size: 42px;
+}
+
+html[data-theme="dark"]{
+  --bg:        #060A08;
+  --bg-alt:    #0A0F0C;
+  --surface:   #0D1512;
+  --surface-2: #101D18;
+  --ink:       #F2F7F3;
+  --ink-soft:  #B4C7BB;
+  --muted:     #6E8577;
+  --line:      #1B2C24;
+  --grid-line: rgba(47,191,159,0.07);
+  --shadow:    0 24px 48px -20px rgba(0,0,0,0.85);
+}
+
+html[data-theme="light"]{
+  --bg:        #EFF3EE;
+  --bg-alt:    #E6ECE4;
+  --surface:   #FBFDF9;
+  --surface-2: #F1F5EE;
+  --ink:       #101E17;
+  --ink-soft:  #38493F;
+  --muted:     #6B7C71;
+  --line:      #D3DDCF;
+  --grid-line: rgba(16,30,23,0.05);
+  --shadow:    0 20px 40px -22px rgba(16,30,23,0.18);
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:
+    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/var(--grid-size) var(--grid-size),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/var(--grid-size) var(--grid-size),
+    var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.6;
+  transition:background-color .3s ease, color .3s ease;
+}
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+
+img,svg{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+:focus-visible{ outline:2px solid var(--signal); outline-offset:3px; }
+
+.wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
+
+/* ---- reference-designator tag, styled like a PCB component label ---- */
+.desig{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--font-mono);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.02em;
+  color:var(--signal);
+  border:1px solid var(--line);
+  border-radius:var(--radius-s);
+  padding:3px 8px;
+  background:var(--surface-2);
+  flex-shrink:0;
+}
+
+.section-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:34px;
+}
+.section-head h2{
+  font-family:var(--font-head);
+  font-weight:600;
+  font-size:clamp(24px,3vw,32px);
+  margin:0;
+}
+
+section{ padding:96px 0; position:relative; }
+section + section{ border-top:1px solid var(--line); }
+
+/* ---------------------------- NAVBAR ---------------------------- */
+header.nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  backdrop-filter:blur(10px);
+  background:color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1080px; margin:0 auto; padding:14px 28px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.logo{
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--font-head); font-weight:700; font-size:17px;
+}
+.logo svg{ width:26px; height:26px; }
+.nav-links{ display:flex; align-items:center; gap:26px; }
+.nav-links a{
+  font-family:var(--font-mono); font-size:13px; color:var(--ink-soft);
+  transition:color .2s ease;
+}
+.nav-links a:hover{ color:var(--signal); }
+.nav-toggle-btn{
+  border:1px solid var(--line); background:var(--surface);
+  width:36px; height:36px; border-radius:var(--radius-m);
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  color:var(--ink);
+}
+.nav-toggle-btn svg{ width:18px; height:18px; }
+.burger{ display:none; border:1px solid var(--line); background:var(--surface); width:36px;height:36px; border-radius:var(--radius-m); cursor:pointer; }
+
+/* ---------------------------- HERO ---------------------------- */
+.hero{ padding-top:168px; padding-bottom:100px; }
+.hero-grid{
+  display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center;
+}
+.hero-tag{ margin-bottom:22px; }
+.hero h1{
+  font-family:var(--font-head); font-weight:700;
+  font-size:clamp(38px,6vw,64px); line-height:1.05; margin:0 0 18px;
+  letter-spacing:-0.01em;
+}
+.hero .role{
+  font-family:var(--font-mono); color:var(--signal); font-size:16px; margin-bottom:22px;
+}
+.hero p.summary{
+  max-width:56ch; color:var(--ink-soft); font-size:16.5px; margin-bottom:34px;
+}
+.cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+.btn{
+  font-family:var(--font-mono); font-size:13.5px; font-weight:600;
+  padding:13px 22px; border-radius:var(--radius-m); cursor:pointer;
+  display:inline-flex; align-items:center; gap:8px; border:1px solid transparent;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn-primary{ background:var(--signal); color:#06140F; }
+.btn-primary:hover{ box-shadow:0 10px 24px -8px rgba(47,191,159,0.55); }
+.btn-ghost{ background:transparent; border-color:var(--line); color:var(--ink); }
+.btn-ghost:hover{ border-color:var(--signal); color:var(--signal); }
+
+/* decorative schematic panel beside hero text */
+.hero-visual{
+  position:relative; overflow:hidden;
+  border:1px solid var(--line); border-radius:var(--radius-m);
+  background:var(--surface); box-shadow:var(--shadow);
+  aspect-ratio:3/4; max-width:360px; margin-left:auto;
+}
+.hero-visual img{
+  width:100%; height:100%; object-fit:cover; object-position:top center;
+  filter:saturate(1.03) contrast(1.03);
+}
+.hero-visual-tag{
+  position:absolute; left:12px; right:12px; bottom:12px;
+  display:flex; align-items:center; gap:8px;
+  padding:8px 10px; border-radius:var(--radius-s);
+  background:color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter:blur(6px); border:1px solid var(--line);
+  font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);
+}
+
+/* ---------------------------- ABOUT ---------------------------- */
+.about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:56px; }
+.about-grid p{ color:var(--ink-soft); margin-bottom:16px; max-width:62ch; }
+.edu-card{
+  border:1px solid var(--line); border-radius:var(--radius-m);
+  background:var(--surface); padding:22px; box-shadow:var(--shadow);
+}
+.edu-card .years{ font-family:var(--font-mono); color:var(--signal); font-size:12.5px; margin-bottom:10px; }
+.edu-card h3{ font-family:var(--font-head); font-size:18px; margin:0 0 6px; }
+.edu-card .school{ color:var(--muted); font-size:14px; margin-bottom:12px; }
+.edu-card .desc{ color:var(--ink-soft); font-size:14px; margin:0; }
+
+/* ---------------------------- SKILLS ---------------------------- */
+.skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px; }
+.skill-card{
+  border:1px solid var(--line); border-radius:var(--radius-m);
+  background:var(--surface); padding:24px; box-shadow:var(--shadow);
+}
+.skill-card h3{
+  font-family:var(--font-mono); font-size:13px; color:var(--muted);
+  margin:0 0 16px; padding-bottom:12px; border-bottom:1px solid var(--line);
+}
+.badge-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.badge{
+  font-size:13px; padding:6px 12px; border-radius:999px;
+  border:1px solid var(--line); background:var(--surface-2); color:var(--ink-soft);
+}
+
+/* ---------------------------- PROJECTS ---------------------------- */
+.projects-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
+.proj-card{
+  border:1px solid var(--line); border-radius:var(--radius-m);
+  background:var(--surface); padding:26px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:14px;
+}
+.proj-card h3{ font-family:var(--font-head); font-size:19px; margin:0; }
+.proj-card p{ color:var(--ink-soft); font-size:14.5px; margin:0; flex-grow:1; }
+.proj-tech{ display:flex; flex-wrap:wrap; gap:6px; }
+.proj-tech span{
+  font-family:var(--font-mono); font-size:11px; color:var(--signal);
+  border:1px solid var(--line); border-radius:var(--radius-s); padding:3px 7px;
+}
+.proj-links{ display:flex; gap:16px; margin-top:4px; }
+.proj-links a{
+  font-family:var(--font-mono); font-size:12.5px; color:var(--muted);
+  border-bottom:1px dashed var(--muted); padding-bottom:2px;
+}
+.proj-links a:hover{ color:var(--signal); border-color:var(--signal); }
+.proj-card.placeholder{ border-style:dashed; justify-content:center; align-items:center; text-align:center; color:var(--muted); }
+.proj-card.placeholder h3{ color:var(--muted); }
+
+/* ---------------------------- TIMELINE ---------------------------- */
+.timeline{ position:relative; padding-left:34px; }
+.timeline::before{
+  content:''; position:absolute; left:6px; top:6px; bottom:6px; width:2px;
+  background:linear-gradient(var(--signal), var(--line));
+}
+.t-item{ position:relative; padding-bottom:38px; }
+.t-item:last-child{ padding-bottom:0; }
+.t-item::before{
+  content:''; position:absolute; left:-34px; top:4px; width:12px; height:12px;
+  border-radius:50%; background:var(--bg); border:2px solid var(--signal);
+}
+.t-item .years{ font-family:var(--font-mono); font-size:12.5px; color:var(--signal); margin-bottom:6px; }
+.t-item h3{ font-family:var(--font-head); font-size:17px; margin:0 0 4px; }
+.t-item .org{ color:var(--muted); font-size:13.5px; margin-bottom:8px; }
+.t-item p{ color:var(--ink-soft); font-size:14.5px; margin:0; max-width:62ch; }
+.t-kind{
+  display:inline-block; font-family:var(--font-mono); font-size:10.5px;
+  color:var(--copper); border:1px solid var(--line); border-radius:var(--radius-s);
+  padding:2px 6px; margin-left:8px; vertical-align:middle;
+}
+
+/* ---------------------------- CONTACT ---------------------------- */
+.contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.contact-card{
+  border:1px solid var(--line); border-radius:var(--radius-m);
+  background:var(--surface); padding:22px; box-shadow:var(--shadow);
+  display:flex; align-items:center; gap:16px;
+}
+.contact-card svg{ width:22px; height:22px; color:var(--signal); flex-shrink:0; }
+.contact-card .label{ font-family:var(--font-mono); font-size:11.5px; color:var(--muted); margin-bottom:3px; }
+.contact-card .value{ font-size:15px; word-break:break-word; }
+.contact-card a.value:hover{ color:var(--signal); }
+
+footer{
+  padding:34px 0; text-align:center; color:var(--muted);
+  font-family:var(--font-mono); font-size:12.5px; border-top:1px solid var(--line);
+}
+
+/* ---------------------------- RESPONSIVE ---------------------------- */
+@media (max-width: 860px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero-visual{ order:-1; max-width:280px; margin:0 auto; }
+  .about-grid{ grid-template-columns:1fr; }
+  .contact-grid{ grid-template-columns:1fr; }
+}
+@media (max-width: 720px){
+  .nav-links{
+    position:fixed; top:64px; left:0; right:0; bottom:0;
+    background:var(--bg); flex-direction:column; align-items:flex-start;
+    padding:28px; gap:20px; transform:translateX(100%);
+    transition:transform .25s ease; border-top:1px solid var(--line);
+  }
+  .nav-links.open{ transform:translateX(0); }
+  .burger{ display:block; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <!-- simple circuit-node mark; swap for a real logo/monogram if you like -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M6 8.2V14a3 3 0 0 0 3 3h6.8"/><circle cx="18" cy="6" r="2.2"/><path d="M18 8.2V12"/></svg>
+      M. Osama
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <button class="nav-toggle-btn" id="themeToggle" aria-label="Toggle dark and light mode">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </nav>
+    <button class="burger" id="burgerBtn" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:18px;height:18px;margin:auto;"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="desig hero-tag">U1 — HERO</span>
+      <h1>Mahmoud Osama<br>Mahmoud</h1>
+      <div class="role">Communications Engineering Student · Embedded Systems &amp; AI</div>
+      <p class="summary">
+        Driven engineering student with hands-on training across Telecom Egypt, the Egyptian
+        Metro Authority, and Military Factory 144. I lead <strong>Sentrixa</strong>, a student
+        engineering initiative building projects for nationwide competitions, and I work
+        comfortably across circuit design, embedded coding, and applied AI.
+      </p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-primary">Contact Me</a>
+        <!-- REPLACE CV FILE LINK HERE -->
+        <a href="Mahmoud_Osama_Mahmoud_CV.pdf" download class="btn btn-ghost">Download CV</a>
+      </div>
+    </div>
+    <!-- REPLACE PHOTO HERE — swap the file below for a different image if needed.
+         Keep the file next to index.html, or update the src path. -->
+    <div class="hero-visual">
+      <img src="mahmoud-photo.jpeg" alt="Mahmoud Osama Mahmoud">
+      <div class="hero-visual-tag">
+        <span class="desig" style="background:var(--bg-alt);">GC</span>
+        <span>Grand Egyptian Museum, Cairo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="desig">U2</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div>
+        <p>
+          I'm a Communications Engineering student at the Egyptian Academy for Engineering and
+          Advanced Technology (EAE&amp;AT), focused on telecommunication networks, signal
+          processing, embedded systems, and circuit design. Alongside coursework, I founded and
+          lead <strong>Sentrixa</strong>, an engineering student team that conceptualises,
+          prototypes, and presents technology projects at national inter-university competitions.
+        </p>
+        <p>
+          I've completed verified technical training at Telecom Egypt, the Egyptian Metro
+          Authority, and Military Factory 144, giving me practical exposure to fibre-optic
+          networks, transit signalling systems, and industrial electronics manufacturing. I'm
+          also certified in AI application and deployment, circuit simulation, and data analysis,
+          and I serve as Student Coordinator for the "Tahya Misr" Student Union.
+        </p>
+      </div>
+      <div class="edu-card">
+        <div class="years">2021 — Present</div>
+        <h3>B.Sc. Communications Engineering</h3>
+        <div class="school">Egyptian Academy for Engineering and Advanced Technology (EAE&amp;AT)</div>
+        <p class="desc">Coursework in telecommunication networks, signal processing, embedded systems, and circuit design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SKILLS
+     ============================================================ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="desig">U3</span><h2>Skills &amp; Competencies</h2></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Circuit &amp; Hardware Design</h3>
+        <div class="badge-row">
+          <span class="badge">KiCad</span>
+          <span class="badge">Proteus PCB Design</span>
+          <span class="badge">NI Multisim</span>
+          <span class="badge">Arduino IDE (C/C++)</span>
+          <span class="badge">Embedded Logic</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Technical &amp; Software</h3>
+        <div class="badge-row">
+          <span class="badge">AI Tools &amp; Integration</span>
+          <span class="badge">Data Analysis (Power BI / Excel)</span>
+          <span class="badge">Front-End Basics (HTML/CSS)</span>
+          <span class="badge">Microsoft 365</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Soft &amp; Leadership Skills</h3>
+        <div class="badge-row">
+          <span class="badge">Engineering Team Leadership</span>
+          <span class="badge">Project Management</span>
+          <span class="badge">Problem-Solving</span>
+          <span class="badge">Event Coordination</span>
+          <span class="badge">Public Speaking</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Languages</h3>
+        <div class="badge-row">
+          <span class="badge">Arabic — Native</span>
+          <span class="badge">English — Professional Working Proficiency</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECTS
+     Note: the CV lists Sentrixa and national competitions rather than
+     discrete named projects — cards below reflect that faithfully.
+     REPLACE / ADD PROJECT DETAILS AND LINKS HERE as you build out
+     specific project write-ups.
+     ============================================================ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head"><span class="desig">U4</span><h2>Projects</h2></div>
+    <div class="projects-grid">
+      <div class="proj-card">
+        <h3>Sentrixa Engineering Initiative</h3>
+        <p>
+          Founded and lead a student engineering team dedicated to conceptualising, prototyping,
+          and executing technology projects, directing cross-functional work across circuit
+          design, embedded coding, and project presentation.
+        </p>
+        <div class="proj-tech">
+          <span>Team Leadership</span><span>Embedded Systems</span><span>Circuit Design</span>
+        </div>
+        <div class="proj-links">
+          <!-- ADD PROJECT LINK HERE -->
+          <a href="#">Live Demo</a>
+          <!-- ADD REPOSITORY LINK HERE -->
+          <a href="#">GitHub</a>
+        </div>
+      </div>
+      <div class="proj-card">
+        <h3>National Engineering Competition Entries</h3>
+        <p>
+          Represented EAE&amp;AT in two national-level engineering competitions across Egyptian
+          universities and institutes, presenting Sentrixa's prototypes to cross-institutional
+          judging panels.
+        </p>
+        <div class="proj-tech">
+          <span>Prototyping</span><span>Public Speaking</span><span>Systems Integration</span>
+        </div>
+        <div class="proj-links">
+          <!-- ADD PROJECT LINK HERE -->
+          <a href="#">Live Demo</a>
+          <!-- ADD REPOSITORY LINK HERE -->
+          <a href="#">GitHub</a>
+        </div>
+      </div>
+      <!-- ADD ADDITIONAL PROJECT CARDS HERE — copy the .proj-card structure above -->
+      <div class="proj-card placeholder">
+        <h3>+ Add another project</h3>
+        <p>Duplicate a .proj-card block above and fill in the name, description, tech stack, and links.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPERIENCE & CERTIFICATIONS — signal-path timeline
+     ============================================================ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="desig">U5</span><h2>Experience &amp; Certifications</h2></div>
+    <div class="timeline">
+
+      <div class="t-item">
+        <div class="years">2024 — Present</div>
+        <h3>Team Leader &amp; Founder <span class="t-kind">Leadership</span></h3>
+        <div class="org">Sentrixa Engineering Team, EAE&amp;AT</div>
+        <p>Formed and lead an engineering student team; represented the academy in 2 national-level competitions and directed cross-functional work in circuit design, embedded coding, and presentation.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2024</div>
+        <h3>Engineering Trainee, Communications Sector <span class="t-kind">Training</span></h3>
+        <div class="org">Telecom Egypt (WE)</div>
+        <p>Practical exposure to telecommunication infrastructure, fibre-optic distribution networks, switching centres, and cellular protocols.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2024</div>
+        <h3>Student Coordinator, EAE&amp;AT Branch <span class="t-kind">Leadership</span></h3>
+        <div class="org">"Tahya Misr" Student Union</div>
+        <p>Coordinate college-wide student events and act as primary liaison between students and institutional leadership.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2024</div>
+        <h3>Event Organizer <span class="t-kind">Community</span></h3>
+        <div class="org">"Road to the New Republic" Forum, Ministry of Youth &amp; Sports</div>
+        <p>Helped organize a national youth forum event on behalf of the Ministry of Youth and Sports.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2023</div>
+        <h3>Engineering Trainee, Signaling &amp; Control Systems <span class="t-kind">Training</span></h3>
+        <div class="org">Egyptian Metro Authority</div>
+        <p>Studied control and communications technologies used in transit systems, including signalling, safety protocols, and monitoring networks.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2023 — 2026</div>
+        <h3>Engineering Trainee <span class="t-kind">Training</span></h3>
+        <div class="org">Military Factory 144 (Benha Company for Electronic Industries)</div>
+        <p>Observed industrial electronics assembly lines, Surface-Mount Technology (SMT), circuit testing, and hardware quality control protocols.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2025</div>
+        <h3>AI Hackathon &amp; Training <span class="t-kind">Certification</span></h3>
+        <div class="org">Instant, Orange Digital Center (ODC) &amp; ITIDA</div>
+        <p>Hands-on AI model deployment and practical project execution.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2025</div>
+        <h3>AI Ambassadors Program, 3rd Batch <span class="t-kind">Certification</span></h3>
+        <div class="org">NTRA, NTI &amp; the Federation of Arab Engineers</div>
+        <p>AI applications in telecom and engineering ethics.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2024</div>
+        <h3>Microsoft Certified: Office 365 Specialist <span class="t-kind">Certification</span></h3>
+        <div class="org">Microsoft</div>
+        <p>Certified expertise in Microsoft 365 suite applications and tools.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2024</div>
+        <h3>Data Analysis Certification <span class="t-kind">Certification</span></h3>
+        <div class="org">Ministry of Youth and Sports &amp; Microsoft</div>
+        <p>Data manipulation and visualization.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="years">2024</div>
+        <h3>Arduino Microcontrollers Certification <span class="t-kind">Certification</span></h3>
+        <div class="org">EAE&amp;AT</div>
+        <p>Hardware prototyping and C++ embedded programming.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head"><span class="desig">U6</span><h2>Contact</h2></div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+        <div>
+          <div class="label">Email</div>
+          <a class="value" href="mailto:mahmoudtimoum@gmail.com">mahmoudtimoum@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>
+        <div>
+          <div class="label">Phone</div>
+          <a class="value" href="tel:+201551469423">+20 155 146 9423</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div>
+          <div class="label">Location</div>
+          <div class="value">Obour City, Cairo, Egypt</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <div>
+          <div class="label">LinkedIn</div>
+          <a class="value" href="https://www.linkedin.com/in/mahmoud-osama-687346247/" target="_blank" rel="noopener">linkedin.com/in/mahmoud-osama-687346247</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+        <div>
+          <div class="label">Instagram</div>
+          <a class="value" href="https://www.instagram.com/0mahmoud_osama0" target="_blank" rel="noopener">@0mahmoud_osama0</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 4h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3Z"/></svg>
+        <div>
+          <div class="label">Facebook</div>
+          <a class="value" href="https://www.facebook.com/mahmoudosama2003" target="_blank" rel="noopener">facebook.com/mahmoudosama2003</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Mahmoud Osama Mahmoud — built with a single HTML file, easy to edit.
+</footer>
+
+<script>
+  // ============================================================
+  // THEME TOGGLE — persists choice in localStorage
+  // ============================================================
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+
+  const sunPath = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  const moonPath = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>';
+
+  function applyTheme(theme){
+    root.setAttribute('data-theme', theme);
+    themeIcon.innerHTML = theme === 'dark' ? sunPath : moonPath;
+    localStorage.setItem('portfolio-theme', theme);
+  }
+
+  const savedTheme = localStorage.getItem('portfolio-theme') ||
+    (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  applyTheme(savedTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  });
+
+  // ============================================================
+  // MOBILE MENU
+  // ============================================================
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burgerBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
